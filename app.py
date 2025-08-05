@@ -16,11 +16,11 @@ def format_json_display(raw_prompt):
         # Try parsing and pretty-printing as JSON
         obj = json.loads(raw_prompt)
         pretty = json.dumps(obj, indent=2)
-        return f"```json\n{pretty}\n```"
+        return pretty  # No ```json markdown block
     except Exception:
         # Fallback: force line breaks at commas if not parseable
         safe_prompt = raw_prompt.replace(",", ",\n")
-        return f"```text\n{safe_prompt}\n```"
+        return safe_prompt  # No ```text markdown block
 
 
 # # CSS TO MAKE VIDES SMALLER
@@ -198,10 +198,10 @@ else:
                             if 0 <= video_idx < len(prompts)
                             else "No prompt available"
                         )
-                        st.markdown(f"{prompt}")
 
                         # Display folder name
                         st.markdown(f"#### {subfolders[0]}")
+                        st.markdown(f"{prompt}")
 
                         # Display video
                         videos = subfolder_videos[0]
